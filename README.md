@@ -57,7 +57,7 @@ aria2的访问建议使用 [http://aria2.net/#!/new](http://aria2.net/#!/new)
 
 `magnets.txt` 文件内是已添加过任务的hash值, 你可以手动添加不想下载的任务, 可以删除以清空记录, 程序会创建一个新的空文件.
 
-`keywords.txt` 支持相对路径及绝对路径, 支持Windows和Unix两种路径表达方式, 当指定了不存在的路径时会尝试创建, 创建失败或者无法读取的记录则跳过这一行.
+`keywords.txt` 支持相对路径及绝对路径, 支持Windows和Unix两种路径表达方式, 当指定了不存在的路径时会尝试创建, 创建失败或者无法读取的记录则跳过这一行. 如果修改了 `keywords.txt`不需要进行重启程序, 下一次扫描会自动载入.
 
 `constant.py` 包含了一些程序依赖的常量, 例如你可以指定其他路径的 `keywords.txt` 或者 `magnets.txt`
 
