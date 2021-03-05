@@ -1,10 +1,13 @@
-from dmhy import get_magnets_from_query, rpc_torrent
-from constant import anime_config_path, magnet_config_path, check_frequence, logout, aria2_config_path, tracker_url
 import os
 import csv
+import json
+import base64
 import time
 import requests
 import argparse
+
+from constant import anime_config_path, magnet_config_path, check_frequence, logout, aria2_config_path, tracker_url, aria_rpc_url, aria_token
+from dmhy import get_magnets_from_query
 
 support_website = ('dmhy')
 
@@ -21,7 +24,7 @@ class LoadConfig(object):
 
     def _validate_path(self, path):
         if not os.path.exists(path):
-            print('Path not exist in keyword file, path: {}, will try to create it.'.format(anime_config_path, path))
+            print('Path not exist in keyword file, path: {}, will try to create it.'.format(path))
             try:
                 os.mkdir(path)
                 print('Create Path Success, Path: {}.'.format(path))
@@ -83,12 +86,43 @@ class LoadConfig(object):
         return result
 
 
+class Download(object):
+    def _file_to_base64(self, file_path):
+        with open(file_path, 'rb') as file_object:
+            base64_data = str(base64.b64encode(file_object.read()), encoding='utf-8')
+        return base64_data
+
+    def _get_hash_from_magnet(self, magnet):
+        if magnet.find('magnet:?') == 0:
+            hash_value = magnet.split(':')[3][:32]
+            return hash_value
+
+    def rpc_torrent(self, torrent_path, download_path, url=aria_rpc_url):
+        data = json.dumps({
+            "jsonrpc": "2.0",
+            "id": os.path.basename(torrent_path),
+            "method": "aria2.addTorrent",
+            "params": ['token:{}'.format(aria_token), self._file_to_base64(torrent_path), ['--bt-save-metadata false'], {'dir': download_path}]})
+        r = requests.post(url, data=data)
+        return r.content
+
+    def rpc_magnet(self, magnet, download_path, url=aria_rpc_url):
+        hash_value = self._get_hash_from_magnet(magnet)
+        data = json.dumps({
+            "jsonrpc": "2.0",
+            "id": hash_value if hash_value else str(time.time()),
+            "method": "aria2.addUri",
+            "params": ['token:{}'.format(aria_token), [magnet], {'dir': download_path}]})
+        r = requests.post(url, data=data)
+        return r.content
+
+
 def check_anime(anime_config, magnets, download=True):
     # check query urls in anime csv
     for keyword, keys in anime_config.items():
         path = keys[0]
         # TODO: Support more websites.
-        website = keys[1]
+        # website = keys[1]
         # get query magnets and hash value
         # query_magnets {title: (hash_value, magnet)}
         query_magnets = get_magnets_from_query(keyword)
@@ -99,7 +133,7 @@ def check_anime(anime_config, magnets, download=True):
             if hash_value not in magnets:
                 if download:
                     # rpc download
-                    rpc_torrent(magnet, hash_value, path)
+                    Download().rpc_magnet(magnet, path)
 
                 # update magnet config
                 with open(os.path.abspath(magnet_config_path), 'a', encoding='utf-8', errors='ignore') as magnet_config:
