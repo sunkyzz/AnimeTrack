@@ -49,7 +49,7 @@ aria2的访问建议使用 [http://aria2.net/#!/new](http://aria2.net/#!/new)
 
 ![](imgs/instruction-7.jpg)
 
-如果有任何问题或者修改建议, 请在 [**Isuue**](https://github.com/sunkyzz/anime_track/issues/new) 内留言.
+如果有任何问题或者修改建议, 请在 [**Isuue**](https://github.com/sunkyzz/AnimeTrack/issues/new) 内留言.
 
 # 使用说明
 
@@ -77,13 +77,13 @@ aria2的默认Token为 `ANIME_TRACK`, 如果你启动了自己的aria2或者在a
 
 Q: 支持哪些网站?
 
-A: 暂时只支持dmhy, 如果你需要其他网站, 请提 [**Isuue**](https://github.com/sunkyzz/anime_track/issues/new), 我有空会做的.
+A: 暂时只支持dmhy, 如果你需要其他网站, 请提 [**Isuue**](https://github.com/sunkyzz/AnimeTrack/issues/new), 我有空会做的.
 
 <br>
 
 Q: 网站提示523 or 无法获取搜索结果.
 
-A: 通常是暂时性抽风, 如果好几天都无法获得搜索结果, 请提 [**Isuue**](https://github.com/sunkyzz/anime_track/issues/new).
+A: 通常是暂时性抽风, 如果好几天都无法获得搜索结果, 请提 [**Isuue**](https://github.com/sunkyzz/AnimeTrack/issues/new).
 
 <br>
 
@@ -95,4 +95,4 @@ A: 单纯为了使用方便罢了, 应该不会出现性能上的瓶颈就这样
 
 Q: 下载解析失效 & 有BUG & 有使用问题 & 有想法
 
-A: [**Isuue**](https://github.com/sunkyzz/anime_track/issues/new)
+A: [**Isuue**](https://github.com/sunkyzz/AnimeTrack/issues/new)
