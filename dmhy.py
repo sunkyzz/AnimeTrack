@@ -1,18 +1,7 @@
-import json
 import requests
 import xmltodict
 from urllib.parse import unquote
-from constant import logout, aria_rpc_url, aria_token
-
-
-def rpc_torrent(magnet, hash_value, download_path, url=aria_rpc_url):
-    data = json.dumps({
-        "jsonrpc": "2.0",
-        "id": hash_value,
-        "method": "aria2.addUri",
-        "params": ['token:{}'.format(aria_token), [magnet], {'dir': download_path}]})
-    r = requests.post(url, data=data)
-    return r.content
+from constant import logout
 
 
 def get_magnets_from_query(keyword):
