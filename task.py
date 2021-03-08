@@ -80,7 +80,7 @@ class LoadConfig(object):
         magnet_config_path = os.path.abspath(magnet_config_path)
         self._validate_magnet_file(magnet_config_path)
         result = []
-        with open(magnet_config_path, 'r', encoding='utf-8', errors='ignore') as magnet_config:
+        with open(magnet_config_path, 'r', encoding='utf-8-sig', errors='ignore') as magnet_config:
             for magnet in magnet_config:
                 result.append(magnet.replace('\n', ''))
         return result
