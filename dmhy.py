@@ -30,4 +30,6 @@ def get_magnets_from_query(keyword):
                 hash_value = _get_hash_from_magnet(magnet)
                 title = query_result['title']
                 results[title] = (hash_value, magnet)
+    else:
+        return False
     return results

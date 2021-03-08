@@ -47,7 +47,7 @@ class LoadConfig(object):
         anime_config_path = os.path.abspath(anime_config_path)
         self._validate_anime_config_path(anime_config_path)
         # load anime csv
-        with open(anime_config_path, 'r', newline='', encoding='utf-8', errors='ignore') as csv2:
+        with open(anime_config_path, 'r', newline='', encoding='utf-8-sig', errors='ignore') as csv2:
             rows = csv.reader(csv2)
             anime_config = {}
             for row in rows:
@@ -127,7 +127,8 @@ def check_anime(anime_config, magnets, download=True):
         # query_magnets {title: (hash_value, magnet)}
         query_magnets = get_magnets_from_query(keyword)
         if not query_magnets:
-            return
+            print('Rss error when query keyword :{}'.format(keyword))
+            continue
         for title, magnet_info in query_magnets.items():
             hash_value, magnet = magnet_info[0], magnet_info[1]
             if hash_value not in magnets:
