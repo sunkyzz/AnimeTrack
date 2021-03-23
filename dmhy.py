@@ -24,6 +24,8 @@ def get_magnets_from_query(keyword):
     if 'rss' in anime_dict and 'channel' in anime_dict['rss'] and 'item' in anime_dict['rss']['channel']:
         results = {}
         query_results = anime_dict['rss']['channel']['item']
+        if not isinstance(query_results, list):
+            query_results = [query_results]
         for query_result in query_results:
             if 'title' in query_result and 'enclosure' in query_result and '@url' in query_result['enclosure']:
                 magnet = query_result['enclosure']['@url']
